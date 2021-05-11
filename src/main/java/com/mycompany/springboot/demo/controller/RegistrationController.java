@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.mycompany.springboot.demo.service.UserService;
-import com.mycompany.springboot.dto.UserDto;
+import com.mycompany.springboot.demo.dto.UserDto;
 
 /**
  * A controller for the registration page.

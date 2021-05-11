@@ -28,10 +28,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.mycompany.springboot.demo.service.RoleService;
 import com.mycompany.springboot.demo.service.UserService;
-import com.mycompany.springboot.dto.RoleDto;
-import com.mycompany.springboot.dto.UserDto;
+import com.mycompany.springboot.demo.dto.UserDto;
 
 
 /**

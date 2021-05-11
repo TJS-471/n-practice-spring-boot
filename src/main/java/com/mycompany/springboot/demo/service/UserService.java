@@ -2,7 +2,7 @@ package com.mycompany.springboot.demo.service;
 
 import java.util.List;
 
-import com.mycompany.springboot.dto.UserDto;
+import com.mycompany.springboot.demo.dto.UserDto;
 
 /**
  * A service interface for {@link UserDto}.

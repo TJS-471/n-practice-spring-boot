@@ -9,22 +9,17 @@ import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.beans.propertyeditors.StringTrimmerEditor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.WebDataBinder;
-import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.InitBinder;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.mycompany.springboot.demo.service.RoleService;
 import com.mycompany.springboot.demo.service.UserService;
-import com.mycompany.springboot.dto.RoleDto;
-import com.mycompany.springboot.dto.UserDto;
+import com.mycompany.springboot.demo.dto.RoleDto;
+import com.mycompany.springboot.demo.dto.UserDto;
 
 /**
  * A controller for the {@link UserDto} page

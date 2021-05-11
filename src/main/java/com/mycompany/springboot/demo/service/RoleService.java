@@ -3,7 +3,7 @@ package com.mycompany.springboot.demo.service;
 
 import java.util.List;
 
-import com.mycompany.springboot.dto.RoleDto;
+import com.mycompany.springboot.demo.dto.RoleDto;
 
 /**
  * A service interface for {@link RoleDto}.

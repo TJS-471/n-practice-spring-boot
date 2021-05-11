@@ -1,4 +1,4 @@
-package com.mycompany.springboot.dto;
+package com.mycompany.springboot.demo.dto;
 
 import javax.validation.constraints.NotNull;
 

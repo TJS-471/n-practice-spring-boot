@@ -11,8 +11,8 @@ import com.mycompany.springboot.demo.dao.UserDaoImpl;
 import com.mycompany.springboot.demo.entity.Role;
 import com.mycompany.springboot.demo.entity.User;
 import com.mycompany.springboot.demo.service.UserService;
-import com.mycompany.springboot.dto.RoleDto;
-import com.mycompany.springboot.dto.UserDto;
+import com.mycompany.springboot.demo.dto.RoleDto;
+import com.mycompany.springboot.demo.dto.UserDto;
 
 import java.util.ArrayList;
 import java.util.Arrays;

@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.mycompany.springboot.demo.service.RoleService;
-import com.mycompany.springboot.dto.RoleDto;
+import com.mycompany.springboot.demo.dto.RoleDto;
 
 /**
  * A controller for the {@link RoleDto} page

@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service;
 import com.mycompany.springboot.demo.dao.RoleDaoImpl;
 import com.mycompany.springboot.demo.entity.Role;
 import com.mycompany.springboot.demo.service.RoleService;
-import com.mycompany.springboot.dto.RoleDto;
+import com.mycompany.springboot.demo.dto.RoleDto;
 
 import java.util.ArrayList;
 import java.util.List;
