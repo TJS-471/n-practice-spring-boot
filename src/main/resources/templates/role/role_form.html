@@ -1,0 +1,75 @@
+<!DOCTYPE HTML>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+
+<head>
+<!-- Required meta tags -->
+<meta charset="utf-8">
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+<!-- Bootstrap CSS -->
+<link rel="stylesheet"
+	href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"
+	integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS"
+	crossorigin="anonymous">
+
+<title th:text="${role.id == 0} ? 'Save Role' : 'Edit Role'"></title>
+</head>
+
+<body>
+
+	<div class="container">
+
+		<h3>Role Directory</h3>
+		<hr>
+
+		<div align="right">
+			<!-- Add a logout button -->
+			<form action="#" th:action="@{/logout}" method="POST">
+				User: <span sec:authentication="name"></span> <br> Role(s): <span
+					sec:authentication="principal.authorities"></span> <br>
+				<input type="submit" value="Logout"
+					class="btn btn-outline-primary mt-2" />
+
+			</form>
+		</div>	
+		<p class="h4 mb-4"
+			th:text="${role.id == 0} ? 'Save Role' : 'Edit Role'" />
+
+		<form th:action="@{/admin/save_role}" th:object="${role}" method="POST">
+
+			<!-- Add hidden form field to handle delete -->
+			<input type="hidden" th:field="*{id}" />
+			<input type="text"
+				th:field="*{name}" class="form-control mb-4 col-4"
+				placeholder="Role name"  th:errorclass="fieldError"> 
+			<div th:if="${#fields.hasErrors('name')}"
+				style="margin-bottom: 25px" class="text-danger">
+				<ul>
+					<li th:each="err : ${#fields.errors('name')}"
+						th:text="'Name ' + ${err}" />
+				</ul>
+			</div>
+			
+			<button type="submit" class="btn btn-info col-2">Save</button>
+
+		</form>
+
+		<hr>
+		<a th:href="@{/}">Back to Home page</a>
+
+	</div>
+</body>
+
+</html>
+
+
+
+
+
+
+
+
+
+

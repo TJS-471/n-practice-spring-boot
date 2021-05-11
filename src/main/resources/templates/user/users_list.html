@@ -1,0 +1,124 @@
+<!DOCTYPE HTML>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+
+<head>
+<!-- Required meta tags -->
+<meta charset="utf-8">
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+<!-- Bootstrap CSS -->
+<link rel="stylesheet"
+	href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"
+	integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS"
+	crossorigin="anonymous">
+
+<title>Employee Directory</title>
+</head>
+
+<body>
+
+	<div class="container">
+
+		<h3>Admin Directory</h3>
+		<hr>
+
+		<div align="right">
+			<!-- Add a logout button -->
+			<form action="#" th:action="@{/logout}" method="POST">
+				User: <span sec:authentication="name"></span> <br> Role(s): <span
+					sec:authentication="principal.authorities"></span> <br>
+				<input type="submit" value="Logout"
+					class="btn btn-outline-primary mt-2" />
+
+			</form>
+
+		</div>
+
+		<form th:action="@{/user/search}" class="form-inline">
+			<a sec:authorize="hasRole('ROLE_ADMIN')" 
+			th:href="@{/admin/show_user_form}"
+				class="btn btn-primary btn-sm mr-5 mb-3"> Add new user </a> 
+				<input
+				class="form-control  ml-5 mr-sm-2 mb-3" type="search"
+				name="keyword" placeholder="Search by name" />
+
+			<button class="btn btn-primary mb-3" type="submit">Search</button>
+		</form>
+
+
+		<table class="table table-bordered table-striped">
+			<thead class="thead-dark">
+				<tr>
+					<th>Index</th>
+					<th sec:authorize="hasRole('ROLE_ADMIN')">ID</th>
+					<th>Login</th>
+					<th>Email</th>
+					<th>First Name</th>
+					<th>Last Name</th>
+					<th sec:authorize="hasAnyRole('ROLE_MANAGER', 'ROLE_ADMIN')">Age</th>
+					<th sec:authorize="hasRole('ROLE_ADMIN')">Role(s)</th>
+					<th sec:authorize="hasAnyRole('ROLE_MANAGER', 'ROLE_ADMIN')">Action</th>
+				</tr>
+			</thead>
+
+			<tbody>
+
+				<tr th:each="tempUser, tempUserStat : ${usersList}">
+                    <td th:text="${tempUserStat.index +1}"/>
+                    <td sec:authorize="hasRole('ROLE_ADMIN')" th:text="${tempUser.id}" />
+					<td th:text="${tempUser.userName}" />
+					<td th:text="${tempUser.email}" />
+					<td th:text="${tempUser.firstName}" />
+					<td th:text="${tempUser.lastName}" />
+                    <td sec:authorize="hasAnyRole('ROLE_MANAGER', 'ROLE_ADMIN')" 
+                    th:each="age : ${ages}" 
+                    th:if="${age.key == tempUser.id}"
+                    th:text="${age.value}" />
+					<td sec:authorize="hasRole('ROLE_ADMIN')" 
+					th:text="${tempUser.roles}" />
+					<td sec:authorize="hasAnyRole('ROLE_MANAGER', 'ROLE_ADMIN')">
+					<!--  
+						<sec:authorize access="hasAnyRole('ROLE_MANAGER', 'ROLE_ADMIN')"> -->
+
+							<!-- Add "update" button/link -->
+							<a sec:authorize="hasRole('ROLE_ADMIN')"
+								th:href="@{/admin/show_update_user_form(login=${tempUser.userName})}"
+								class="btn btn-info btn-sm"> Update </a>
+								<!-- Add "update" button/link -->
+							<a sec:authorize="hasRole('ROLE_MANAGER')"
+								th:href="@{/manager/show_update_user_form(login=${tempUser.userName})}"
+								class="btn btn-info btn-sm"> Update </a>
+                     <!--  
+						</sec:authorize> -->
+							<!-- Add "delete" button/link -->
+							<a sec:authorize ="hasRole('ROLE_ADMIN')"
+							th:href="@{/admin/delete_user(id=${tempUser.id})}"
+								class="btn btn-danger btn-sm"
+								onclick="if (!(confirm('Are you sure you want to delete this user?'))) return false">
+								Delete </a>
+					</td>
+
+
+				</tr>
+			</tbody>
+		</table>
+
+		<!-- Add a redirect to roles button -->
+		<form sec:authorize="hasRole('ROLE_ADMIN')" 
+		th:action="@{/admin/list_roles}"
+			method="GET">
+			<input type="submit" value="To Roles List"
+				class="btn btn-outline-primary mt-2" />
+
+		</form>
+        <hr>
+		<a th:href="@{/}">Back to Home page</a>
+	</div>
+
+</body>
+</html>
+
+
+

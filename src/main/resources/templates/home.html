@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+
+<head>
+
+<title>Home Page</title>
+
+<meta charset="utf-8">
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+<!-- Reference Bootstrap files -->
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
+
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+
+</head>
+
+<body>
+
+	<div align="center" class="h4 mb-4">
+
+		<h1>Welcome to Home Page</h1>
+
+		<hr>
+
+		<!-- display user name and role -->
+
+		<div>
+			User: <span sec:authentication="name"></span> <br> <br>
+			Role(s): <span sec:authentication="principal.authorities"></span> <br>
+			<br>
+
+			<!-- Check for login error -->
+			<div th:if="${session.user}">
+				<p
+					th:text="'First name: ' + ${session.user.firstName} + ', Last name: ' + ${session.user.lastName} + ', Email: ' + ${session.user.email}"></p>
+			</div>
+		</div>
+
+		<div sec:authorize="hasAnyRole('ROLE_USER', 'ROLE_ADMIN','ROLE_MANAGER')">
+
+			<!-- Add a link for the users and admins -->
+
+			<p>
+				<a th:href="@{/user/show_update_user_form}"
+					class="btn btn-outline-primary mt-2">User's profile</a>
+			</p>
+			<p>
+				<a th:href="@{/user/list_users}"
+					class="btn btn-outline-primary mt-2">All Employees</a>
+			</p>
+
+		</div>
+		
+		<div sec:authorize="hasRole('ROLE_MANAGER')">
+
+			<!-- Add a link for the managers -->
+
+			<p>
+				<a th:href="@{/manager}">Leadership</a> (Only for Managers)
+			</p>
+
+		</div>
+		
+		<div sec:authorize="hasRole('ROLE_ADMIN')">
+
+			<!-- Add a link for the admins -->
+
+			<p>
+				<a th:href="@{/admin}">Admins</a> (Only for Managers)
+			</p>
+			
+
+		</div>
+
+		<hr>
+
+
+		<!-- Add a logout button -->
+		<form th:action="@{/logout}" method="POST">
+
+			<input type="submit" value="Logout" class="btn btn-outline-info mt-2" />
+
+		</form>
+	</div>
+</body>
+
+</html>
+
+
+
+
+
+
+
+
+

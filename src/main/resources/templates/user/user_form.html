@@ -1,0 +1,114 @@
+<!DOCTYPE HTML>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+
+<head>
+<!-- Required meta tags -->
+<meta charset="utf-8">
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+<!-- Bootstrap CSS -->
+<link rel="stylesheet"
+	href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"
+	integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS"
+	crossorigin="anonymous">
+
+<title>Edit User</title>
+</head>
+
+<body>
+
+	<div class="container">
+
+		<h3>User Directory</h3>
+		<hr>
+
+		<div align="right">
+			<!-- Add a logout button -->
+			<form action="#" th:action="@{/logout}" method="POST">
+				User: <span sec:authentication="name"></span> <br> Role(s): <span
+					sec:authentication="principal.authorities"></span> <br>
+				<input type="submit" value="Logout"
+					class="btn btn-outline-primary mt-2" />
+
+			</form>
+		</div>	
+		<p class="h4 mb-4">Edit User</p>
+
+		<form th:action="@{/user/update_user}" th:object="${user}" method="POST">
+
+			<!-- Add hidden form field to handle delete -->
+			<input type="hidden" th:field="*{id}" />
+			<input type="text"
+				th:field="*{userName}" class="form-control mb-4 col-4"
+				placeholder="User name"  readonly="readonly"> 
+			<input type="text" th:field="*{email}" class="form-control mb-4 col-4"
+				placeholder="Email" th:errorclass="fieldError">
+			<div th:if="${#fields.hasErrors('email')}"
+				style="margin-bottom: 25px" class="text-danger">
+				<ul>
+					<li th:each="err : ${#fields.errors('email')}"
+						th:text="'Email ' + ${err}" />
+				</ul>
+			</div>
+			<input type="text" th:field="*{firstName}"
+				class="form-control mb-4 col-4" placeholder="First name"
+				th:errorclass="fieldError">
+			<div th:if="${#fields.hasErrors('firstName')}"
+				style="margin-bottom: 25px" class="text-danger">
+				<ul>
+					<li th:each="err : ${#fields.errors('firstName')}"
+						th:text="'First name ' + ${err}" />
+				</ul>
+			</div>
+
+			<input type="text" th:field="*{lastName}"
+				class="form-control mb-4 col-4" placeholder="Last name"
+				th:errorclass="fieldError">
+			<div th:if="${#fields.hasErrors('lastName')}"
+				style="margin-bottom: 25px" class="text-danger">
+				<ul>
+					<li th:each="err : ${#fields.errors('lastName')}"
+						th:text="'Last name ' + ${err}" />
+				</ul>
+			</div>
+
+			<input type="text" th:field="*{birthDate}"
+				class="form-control mb-4 col-4" placeholder="Birth Date"
+				th:errorclass="fieldError">
+			<div th:if="${#fields.hasErrors('birthDate')}"
+				style="margin-bottom: 25px" class="text-danger">
+				<ul>
+					<li th:each="err : ${#fields.errors('birthDate')}"
+						th:text="'Birth date ' + ${err}" />
+				</ul>
+			</div>
+            <select sec:authorize ="hasRole('ROLE_ADMIN')" 
+            th:field="*{roles}" class="form-control mb-4 col-4">
+                <option value=""> Role(s) </option>
+                <option th:if="${rolesList != null}" 
+                th:each="role : ${rolesList}" th:value="${role.name}"
+                th:text="${role.name}"></option>
+            </select>
+			<button type="submit" class="btn btn-info col-2">Save</button>
+
+		</form>
+
+		<hr>
+		<a th:href="@{/}">Back to Home page</a>
+
+	</div>
+</body>
+
+</html>
+
+
+
+
+
+
+
+
+
+
